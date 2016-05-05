@@ -3,10 +3,10 @@ defmodule ExAdmin.CategoryPropertyController do
   alias Synergy.{Repo, Category}
 
   def update_positions(conn, %{"category_id" => category_id, "positions" => positions}) do
-    category = Repo.get!(Category, category_id) |> Repo.preload(:category_properties)
-
-    changeset = Category.changeset(category, %{"category_properties" => positions})
-    Repo.update!(changeset)
+    Repo.get!(Category, category_id)
+    |> Repo.preload(:category_properties)
+    |> Category.changeset(%{"category_properties" => positions})
+    |> Repo.update!
 
     conn |> put_status(200) |> json("Ok")
   end
