@@ -1,6 +1,6 @@
 defmodule Synergy.Category do
   use Synergy.Web, :model
-  alias Synergy.{Category, CategoryProperty}
+  alias Synergy.{Category, CategoryProperty, Repo}
 
   schema "categories" do
     field :name, :string
@@ -25,5 +25,11 @@ defmodule Synergy.Category do
     |> cast(params, [:parent_id, :name, :permalink, :displayable])
     |> cast_assoc(:category_properties)
     |> validate_required(@required_fields)
+  end
+
+  def sorted_category_properties(category) do
+    category.category_properties
+    |> Repo.preload(:property)
+    |> Enum.sort_by(&(&1.position))
   end
 end

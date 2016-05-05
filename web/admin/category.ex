@@ -1,7 +1,8 @@
 defmodule Synergy.ExAdmin.Category do
   use ExAdmin.Register
+  alias Synergy.Category
 
-  register_resource Synergy.Category do
+  register_resource Category do
     show category do
       attributes_table
 
@@ -14,7 +15,8 @@ defmodule Synergy.ExAdmin.Category do
       end
 
       panel "Properties" do
-        table_for(category.category_properties |> Synergy.Repo.preload(:property) |> Enum.sort_by(&(&1.position)), class: "table sortable", "data-sortable-link": "/admin/categories/#{category.id}/properties/update_positions") do
+        table_for(Category.sorted_category_properties(category), class: "table sortable",
+          "data-sortable-link": "/admin/categories/#{category.id}/properties/update_positions") do
           column "", [], fn(cp) -> i "", class: "fa fa-bars handle", "aria-hidden": "true" end
           column :property
           column :required
