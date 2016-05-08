@@ -27,9 +27,4 @@ defmodule Synergy.Category do
     |> validate_required(@required_fields)
   end
 
-  def sorted_category_properties(category) do
-    category.category_properties
-    |> Repo.preload(:property)
-    |> Enum.sort_by(&(&1.position))
-  end
 end

@@ -1,6 +1,6 @@
 defmodule Synergy.ExAdmin.Category do
   use ExAdmin.Register
-  alias Synergy.Category
+  alias Synergy.{Category,CategoryProperty}
 
   register_resource Category do
     show category do
@@ -15,14 +15,21 @@ defmodule Synergy.ExAdmin.Category do
       end
 
       panel "Properties" do
-        table_for(Category.sorted_category_properties(category), class: "table sortable",
-          "data-sortable-link": "/admin/categories/#{category.id}/properties/update_positions") do
-          column "", [], fn(cp) -> i "", class: "fa fa-bars handle", "aria-hidden": "true" end
+        table_for(category.category_properties, sortable: [resource: category, assoc_name: "category_properties"]) do
+          sort_handle_column
           column :property
-          column :required
-          column :displayable
+          column :required, toogle: true
+          column :displayable, toogle: true
         end
       end
+    end
+
+    query do
+      %{show: [preload: [
+        :parent,
+        :children,
+        category_properties: from(CategoryProperty, order_by: [:position], preload: [:property])
+        ]] }
     end
   end
 end

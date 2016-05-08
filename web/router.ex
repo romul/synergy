@@ -24,7 +24,7 @@ defmodule Synergy.Router do
     pipe_through :browser
     admin_routes
 
-    post "/categories/:category_id/properties/update_positions", CategoryPropertyController, :update_positions
+    #post "/categories/:category_id/properties/update_positions", CategoryPropertyController, :update_positions
   end
 
   # Other scopes may use custom stacks.
