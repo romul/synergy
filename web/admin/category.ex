@@ -15,21 +15,24 @@ defmodule Synergy.ExAdmin.Category do
       end
 
       panel "Properties" do
-        table_for(category.category_properties, sortable: [resource: category, assoc_name: "category_properties"]) do
+        sortable_table_for(category, :category_properties) do
           sort_handle_column
           column :property
-          column :required, toogle: true
+          column :required, toogle: ~w(YES NO)
           column :displayable, toogle: true
         end
       end
     end
 
     query do
-      %{show: [preload: [
-        :parent,
-        :children,
-        category_properties: from(CategoryProperty, order_by: [:position], preload: [:property])
-        ]] }
+      %{
+        show: [preload: [
+          :parent,
+          :children,
+          category_properties: from(CategoryProperty, order_by: [:position], preload: [:property])
+        ]],
+        all: [preload: [:parent, :children, :category_properties]]
+      }
     end
   end
 end
