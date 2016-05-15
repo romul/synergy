@@ -6,20 +6,23 @@ defmodule Synergy.ExAdmin.Category do
     show category do
       attributes_table
 
-      panel "Subcategories" do
+      panel "Children" do
         table_for(category.children) do
           column :name
-          column :permalink
-          column :displayable
         end
       end
 
       panel "Properties" do
         sortable_table_for(category, :category_properties) do
-          sort_handle_column
           column :property
-          column :required, toogle: ~w(YES NO)
-          column :displayable, toogle: true
+          column :required, toggle: true
+          column :displayable, toggle: true
+
+          # ExAdmin.Index.actions [:destroy]
+        end
+
+        markup_contents do
+          association_filler(category, :properties, autocomplete: false)
         end
       end
     end

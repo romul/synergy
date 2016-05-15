@@ -34,10 +34,14 @@ config :ex_admin,
   repo: Synergy.Repo,
   module: Synergy,
   theme: ExAdmin.Theme.AdminLte2,
+  theme_selector: [
+    {"AdminLte",  ExAdmin.Theme.AdminLte2},
+    {"ActiveAdmin", ExAdmin.Theme.ActiveAdmin}
+  ],
   modules: [
     Synergy.ExAdmin.Dashboard,
     Synergy.ExAdmin.Category,
     Synergy.ExAdmin.Property,
     Synergy.ExAdmin.CategoryProperty,
-    
+
   ]

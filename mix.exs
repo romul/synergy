@@ -37,7 +37,7 @@ defmodule Synergy.Mixfile do
      {:phoenix_html, "~> 2.5"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:arc_ecto, "~> 0.4.1"},
-     {:ex_admin, path: "../ex_admin"},
+     {:ex_admin, github: "romul/ex_admin", branch: "associations_selector_ecto_2"},
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"}]
   end

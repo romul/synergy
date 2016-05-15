@@ -35,4 +35,13 @@ defmodule Synergy.Property do
     |> cast(params, [:name, :permalink, :type_uid, :overridable_in_variant, :unit_name])
     |> validate_required([:name, :permalink, :type_uid, :overridable_in_variant])
   end
+
+
+  def admin_search_query(keywords) do
+    from(p in Synergy.Property, where: ilike(p.name, ^("%#{keywords}%")), order_by: [:name])
+  end
+
+  def pretty_name(property) do
+    property.name
+  end
 end
