@@ -34,6 +34,7 @@ config :ex_admin,
   repo: Synergy.Repo,
   module: Synergy,
   theme: ExAdmin.Theme.AdminLte2,
+  layout: {Synergy.AdminLayoutView, "admin_synergy.html"},
   theme_selector: [
     {"AdminLte",  ExAdmin.Theme.AdminLte2},
     {"ActiveAdmin", ExAdmin.Theme.ActiveAdmin}
