@@ -3,12 +3,22 @@ defmodule Synergy.ExAdmin.Category do
   alias Synergy.{Category,CategoryProperty}
 
   register_resource Category do
+    scope :all, default: true
+    scope :displayable, fn(q) ->
+      where(q, [p], p.displayable)
+    end
+
     show category do
-      attributes_table
+      attributes_table do
+        row :name
+        row :permalink
+        row :displayable
+      end
 
       panel "Children" do
         table_for(category.children) do
-          column :name
+          column :name, &(String.upcase(&1.name))
+          column :name, &(b to_string(String.length(&1.name)))
         end
       end
 

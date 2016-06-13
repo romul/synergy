@@ -37,11 +37,11 @@ defmodule Synergy.Property do
   end
 
 
-  def admin_search_query(keywords) do
-    from(p in Synergy.Property, where: ilike(p.name, ^("%#{keywords}%")), order_by: [:name])
-  end
+  #def admin_search_query(keywords) do
+#    from(p in Synergy.Property, where: ilike(p.name, ^("%#{keywords}%")), order_by: [:name])
+#  end
 
-  def pretty_name(property) do
-    property.name
+  def display_name(property) do
+    "#{property.id} - #{property.name}"
   end
 end

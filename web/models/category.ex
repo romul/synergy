@@ -16,13 +16,14 @@ defmodule Synergy.Category do
     timestamps
   end
 
+  @allowed_fields [:parent_id, :name, :permalink, :displayable]
   @required_fields [:name, :permalink, :displayable]
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:parent_id, :name, :permalink, :displayable])
+    |> cast(params, @allowed_fields)
     |> cast_assoc(:category_properties)
     |> validate_required(@required_fields)
   end
